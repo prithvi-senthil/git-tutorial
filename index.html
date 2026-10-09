@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Git & GitHub | The Ultimate Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        github: {
+                            bg: '#0d1117',
+                            surface: '#161b22',
+                            border: '#30363d',
+                            text: '#c9d1d9',
+                            muted: '#8b949e',
+                            accent: '#238636',
+                            accentHover: '#2ea043',
+                            link: '#58a6ff'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b949e;
+        }
+    </style>
+</head>
+<body class="bg-github-bg text-github-text font-sans antialiased min-h-screen flex flex-col selection:bg-github-link selection:text-white">
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-github-surface/90 backdrop-blur border-b border-github-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-github-border flex items-center justify-center text-github-link text-xl">
+                    <i class="fa-brands fa-git-alt"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight text-white">Git<span class="text-github-link">Mastery</span></span>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-github-muted">
+                <a href="#modules" class="hover:text-white transition">Modules</a>
+                <a href="#simulator" class="hover:text-white transition">Terminal Sim</a>
+                <a href="#cheatsheet" class="hover:text-white transition">Cheat Sheet</a>
+            </nav>
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleCheatSheet()" class="bg-github-border hover:bg-[#3b434b] text-white text-sm px-3.5 py-1.5 rounded-md font-medium transition flex items-center space-x-2">
+                    <i class="fa-solid fa-book-bookmark text-xs"></i>
+                    <span>Quick Ref</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-16 lg:py-24 border-b border-github-border bg-gradient-to-b from-github-surface/50 to-github-bg">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-github-border/50 border border-github-border text-github-link text-xs font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-github-accent animate-pulse"></span>
+                <span>Version Control & Collaboration Guide</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6">
+                Master Git from <span class="text-transparent bg-clip-text bg-gradient-to-r from-github-link to-emerald-400">Zero to Pro</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-github-muted max-w-2xl mx-auto mb-10">
+                A clean, copy-pasteable, interactive tutorial designed for developers. Learn branching, merging, remote workflows, and recovery techniques.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#modules" class="bg-github-accent hover:bg-github-accentHover text-white font-medium px-6 py-3 rounded-md transition shadow-lg flex items-center space-x-2">
+                    <span>Start Learning</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+                <a href="#simulator" class="bg-github-surface hover:bg-github-border border border-github-border text-white font-medium px-6 py-3 rounded-md transition flex items-center space-x-2">
+                    <i class="fa-solid fa-terminal text-github-link"></i>
+                    <span>Try Simulator</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:block lg:col-span-1 space-y-6">
+            <div class="sticky top-24 bg-github-surface p-4 rounded-xl border border-github-border shadow-sm">
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-github-muted mb-3">Table of Contents</h3>
+                <nav class="space-y-1 text-sm">
+                    <a href="#mod-1" class="block px-3 py-2 rounded-md hover:bg-github-border/50 text-github-text transition">1. Setup & Config</a>
+                    <a href="#mod-2" class="block px-3 py-2 rounded-md hover:bg-github-border/50 text-github-text transition">2. Core Workflow</a>
+                    <a href="#mod-3" class="block px-3 py-2 rounded-md hover:bg-github-border/50 text-github-text transition">3. Branching & Merging</a>
+                    <a href="#mod-4" class="block px-3 py-2 rounded-md hover:bg-github-border/50 text-github-text transition">4. Remote Repositories</a>
+                    <a href="#mod-5" class="block px-3 py-2 rounded-md hover:bg-github-border/50 text-github-text transition">5. Advanced & Undo</a>
+                    <a href="#simulator" class="block px-3 py-2 rounded-md hover:bg-github-border/50 text-github-link font-medium transition"><i class="fa-solid fa-terminal mr-2"></i>Interactive Sim</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Tutorial Modules -->
+        <div id="modules" class="lg:col-span-3 space-y-12">
+            
+            <!-- Module 1 -->
+            <div id="mod-1" class="bg-github-surface border border-github-border rounded-xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-github-link/10 text-github-link flex items-center justify-center font-bold text-sm">1</span>
+                    <h2 class="text-2xl font-bold text-white">Installation & Configuration</h2>
+                </div>
+                <p class="text-github-muted mb-6">Before writing code, tell Git who you are so your commits are properly attributed.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Set your global username:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git config --global user.name "Your Name"</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Set your global email:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git config --global user.email "your.email@example.com"</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Verify your configuration:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git config --list</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div id="mod-2" class="bg-github-surface border border-github-border rounded-xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-github-link/10 text-github-link flex items-center justify-center font-bold text-sm">2</span>
+                    <h2 class="text-2xl font-bold text-white">The Core Workflow (Init, Add, Commit)</h2>
+                </div>
+                <p class="text-github-muted mb-6">Understand the three states of Git: Modified (working directory), Staged (staging area), and Committed (repository history).</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Initialize a new repository in your folder:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git init</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Check current repository status:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git status</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Stage files for commit (or use <code class="text-github-link">git add .</code> for all):</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git add filename.html</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Commit staged changes with a descriptive message:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git commit -m "feat: add homepage hero layout"</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div id="mod-3" class="bg-github-surface border border-github-border rounded-xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-github-link/10 text-github-link flex items-center justify-center font-bold text-sm">3</span>
+                    <h2 class="text-2xl font-bold text-white">Branching & Merging</h2>
+                </div>
+                <p class="text-github-muted mb-6">Work on features safely without disrupting your main production code using branches.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Create and switch to a new feature branch simultaneously:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git checkout -b feature-login</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">List all local branches:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git branch</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Merge your branch back into main (first switch to main):</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git checkout main && git merge feature-login</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4 -->
+            <div id="mod-4" class="bg-github-surface border border-github-border rounded-xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-github-link/10 text-github-link flex items-center justify-center font-bold text-sm">4</span>
+                    <h2 class="text-2xl font-bold text-white">Remote Repositories (GitHub/GitLab)</h2>
+                </div>
+                <p class="text-github-muted mb-6">Connect your local repository to a cloud server to collaborate with teammates.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Link your local repo to a remote URL:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git remote add origin https://github.com/username/repo.git</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Push your local commits to remote main:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git push -u origin main</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Pull latest updates from remote server:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git pull origin main</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5 -->
+            <div id="mod-5" class="bg-github-surface border border-github-border rounded-xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center space-x-3 mb-4">
+                    <span class="w-8 h-8 rounded-lg bg-github-link/10 text-github-link flex items-center justify-center font-bold text-sm">5</span>
+                    <h2 class="text-2xl font-bold text-white">Advanced & Undo (Stash & Reset)</h2>
+                </div>
+                <p class="text-github-muted mb-6">Handle messy work-in-progress states and rescue yourself from mistakes.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Temporarily store uncommitted changes:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git stash</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">Restore stashed changes later:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git stash pop</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-github-muted mb-1">View commit history log:</div>
+                        <div class="relative bg-github-bg border border-github-border rounded-lg p-3 font-mono text-sm flex items-center justify-between">
+                            <span class="text-emerald-400">git log --oneline --graph</span>
+                            <button onclick="copyCode(this)" class="text-github-muted hover:text-white transition text-xs bg-github-surface px-2 py-1 rounded border border-github-border"><i class="fa-regular fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal Simulator Section -->
+            <section id="simulator" class="bg-github-surface border border-github-border rounded-xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-lg bg-github-link/10 text-github-link flex items-center justify-center">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white">Interactive Terminal Simulator</h2>
+                    </div>
+                    <span class="text-xs bg-github-border px-2.5 py-1 rounded text-github-muted">Sandbox</span>
+                </div>
+                <p class="text-github-muted mb-6">Type commands like <code class="text-github-link">git status</code>, <code class="text-github-link">git init</code>, <code class="text-github-link">git log</code>, or <code class="text-github-link">help</code> below to simulate output.</p>
+                
+                <div class="bg-github-bg border border-github-border rounded-lg font-mono text-sm overflow-hidden shadow-inner">
+                    <div class="bg-github-surface px-4 py-2 border-b border-github-border flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                        <span class="text-xs text-github-muted ml-2">bash - git-workspace</span>
+                    </div>
+                    <div id="terminal-output" class="p-4 h-64 overflow-y-auto space-y-2 text-github-text">
+                        <div>Welcome to Git Simulator v1.0. Type <span class="text-github-link font-bold">help</span> for a list of valid commands.</div>
+                    </div>
+                    <div class="flex items-center px-4 py-3 bg-github-surface border-t border-github-border">
+                        <span class="text-github-link mr-2">\$</span>
+                        <input type="text" id="terminal-input" onkeydown="handleTerminalInput(event)" placeholder="Type a git command..." class="bg-transparent focus:outline-none w-full text-white font-mono text-sm">
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-github-surface border-t border-github-border py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-sm text-github-muted">
+            <p>&copy; 2026 GitMastery Tutorial. Open Source MIT License.</p>
+            <div class="flex space-x-4 mt-4 sm:mt-0">
+                <a href="https://github.com" target="_blank" class="hover:text-white transition"><i class="fa-brands fa-github text-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cheat Sheet Modal -->
+    <div id="cheatsheet-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-github-surface border border-github-border rounded-xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <button onclick="toggleCheatSheet()" class="absolute top-4 right-4 text-github-muted hover:text-white transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center space-x-2">
+                <i class="fa-solid fa-book-bookmark text-github-link"></i>
+                <span>Git Command Quick Reference</span>
+            </h3>
+            <div class="space-y-3 text-sm font-mono">
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git init</span> — Initialize repo</div>
+                    <span class="text-github-muted text-xs font-sans">Setup</span>
+                </div>
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git clone [url]</span> — Clone repository</div>
+                    <span class="text-github-muted text-xs font-sans">Setup</span>
+                </div>
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git add .</span> — Stage all changes</div>
+                    <span class="text-github-muted text-xs font-sans">Workflow</span>
+                </div>
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git commit -m "msg"</span> — Commit</div>
+                    <span class="text-github-muted text-xs font-sans">Workflow</span>
+                </div>
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git checkout -b [name]</span> — New branch</div>
+                    <span class="text-github-muted text-xs font-sans">Branching</span>
+                </div>
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git push origin [branch]</span> — Push</div>
+                    <span class="text-github-muted text-xs font-sans">Remote</span>
+                </div>
+                <div class="bg-github-bg p-3 rounded border border-github-border flex justify-between items-center">
+                    <div><span class="text-github-link">git pull</span> — Fetch & merge</div>
+                    <span class="text-github-muted text-xs font-sans">Remote</span>
+                </div>
+            </div>
+            <div class="mt-6 text-right">
+                <button onclick="toggleCheatSheet()" class="bg-github-border hover:bg-[#3b434b] text-white px-4 py-2 rounded text-sm font-medium transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript functionality -->
+    <script>
+        // Copy Code Functionality
+        function copyCode(btn) {
+            const span = btn.parentElement.querySelector('span');
+            const text = span.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check text-emerald-400"></i> Copied';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
+
+        // Toggle Cheat Sheet Modal
+        function toggleCheatSheet() {
+            const modal = document.getElementById('cheatsheet-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+
+        // Terminal Simulator Logic
+        let isInitialized = false;
+        function handleTerminalInput(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('terminal-input');
+                const output = document.getElementById('terminal-output');
+                const cmd = input.value.trim();
+                if (!cmd) return;
+
+                // Echo command
+                const cmdDiv = document.createElement('div');
+                cmdDiv.innerHTML = `<span class="text-github-link">$</span> ${escapeHtml(cmd)}`;
+                output.appendChild(cmdDiv);
+
+                // Process response
+                const resDiv = document.createElement('div');
+                resDiv.className = "text-github-muted";
+
+                const lowerCmd = cmd.toLowerCase();
+                if (lowerCmd === 'help') {
+                    resDiv.innerHTML = `Available simulated commands:<br>` +
+                        `- <span class="text-white">git init</span>: Initialize empty repository<br>` +
+                        `- <span class="text-white">git status</span>: Show working tree status<br>` +
+                        `- <span class="text-white">git log</span>: Show commit history<br>` +
+                        `- <span class="text-white">clear</span>: Clear terminal window`;
+                } else if (lowerCmd === 'clear') {
+                    output.innerHTML = '';
+                    input.value = '';
+                    return;
+                } else if (lowerCmd === 'git init') {
+                    isInitialized = true;
+                    resDiv.innerHTML = `Initialized empty Git repository in /workspace/.git/`;
+                } else if (lowerCmd === 'git status') {
+                    if (!isInitialized) {
+                        resDiv.innerHTML = `fatal: not a git repository (or any of the parent directories): .git`;
+                    } else {
+                        resDiv.innerHTML = `On branch main<br>No commits yet<br><br>nothing to commit (create/copy files and use "git add")`;
+                    }
+                } else if (lowerCmd === 'git log') {
+                    if (!isInitialized) {
+                        resDiv.innerHTML = `fatal: not a git repository (or any of the parent directories): .git`;
+                    } else {
+                        resDiv.innerHTML = `<span class="text-yellow-400">commit a1b2c3d</span> (HEAD -> main)<br>Author: Developer &lt;dev@example.com&gt;<br>Date:   Fri Oct 9 2026<br><br>    feat: initial project structure`;
+                    }
+                } else {
+                    resDiv.innerHTML = `git: '${escapeHtml(cmd)}' is not a git command. See 'help'.`;
+                }
+
+                output.appendChild(resDiv);
+                input.value = '';
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        function escapeHtml(string) {
+            return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>
